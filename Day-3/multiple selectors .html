@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Multiple CSS Class Selector</title>
+    <style>
+        .redText{
+            color: red;
+        }
+        .bigText{
+            font-size: 40px;
+        }
+        .centerText{
+            text-align: center;
+        }
+        .box.design{
+            background-color: lightblue;
+            border: 3px solid black;
+            padding: 20px;
+            width: 300px;
+            margin: auto;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="redText bigText centerText">
+        Welcome to HTML & CSS
+    </h1>
+    <div class="box design redText centerText">
+        This div uses two classes together.
+    </div>
+</body>
+</html>

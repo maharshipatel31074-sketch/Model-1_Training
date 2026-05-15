@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gray Layout Remake</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #ffffff;
+            font-family: Arial, sans-serif;
+        }
+        .grid-container {
+            display: grid;
+            width: 90vw;
+            max-width: 1000px;
+            grid-template-columns: 3fr 1fr;
+            grid-template-rows: 60px 140px 140px 140px 60px;
+            gap: 15px; 
+        }
+        .box {
+            background-color: #808080; 
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #000;
+        }
+        .header {
+            grid-column: 1 / span 2;
+        }
+        .content {
+            grid-row: 2 / span 3;
+        }
+        
+        .footer {
+            grid-column: 1 / span 2;
+        }
+    </style>
+</head>
+<body>
+    <div class="grid-container">
+        <div class="box header">CodePen</div>
+        <div class="box content">Content</div>
+        <div class="box sidebar-item">HTML</div>
+        <div class="box sidebar-item">CSS</div>
+        <div class="box sidebar-item">JS</div>
+        <div class="box footer">Footer</div>
+    </div>
+
+</body>
+</html>
