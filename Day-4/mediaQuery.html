@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Queries</title>
+    <style>
+        @media (max-width: 2048px) {   
+            body { background: red;}
+        }
+        @media (max-width: 1024px) {   
+            body { background: orange;}
+        }
+        @media (max-width: 768px) {
+            body {background: yellow;}
+        }
+        @media (max-width: 540px) {   
+            body { background: green;}
+        }
+        @media (max-width: 480px) {   
+            body { background: lightgreen;}
+        }
+        @media (max-width: 360px) {   
+            body { background: darkmagenta;}
+        }
+        #division1{
+            text-align: center;
+            text-size-adjust: calc(1.2px);
+            background-color : red;
+            float : left;
+            width: 70%;
+            margin-top: auto;
+            padding-block: calc(11.2px);
+        }
+        #division2{
+            text-align: center;
+            text-size-adjust: calc(1.2rem);
+            background-color : blue;
+            float : right;
+            width: 70%;
+            margin-top: auto;
+            padding-block: calc(11.2rem);
+        }
+    </style>
+</head>
+<body>
+    <div id="division1"> HOME PAGE</div>
+    <div id="division2">CONTENT</div>
+</body>
+</html>

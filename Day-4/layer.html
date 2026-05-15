@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSS Layers</title>
+    <style>
+        #division1{ 
+            position : absolute;
+            height : 100px;
+            width : 100px;
+            left : 100px;
+            top : 150px; 
+            background-color : blue;
+            z-index : 5;
+        }
+        #division2{
+            position : absolute;
+            height : 200px;
+            width : 200px;
+            left : 50px;
+            top : 100px;
+            background-color : red;
+            z-index : 2;
+        }
+    </style>
+</head>
+<body>
+    <div id="division1">
+</div>
+<div id="division2">
+</div>
+</body>
+</html>

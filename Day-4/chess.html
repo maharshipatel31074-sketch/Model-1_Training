@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chess</title>
+    <style>
+        :root {
+            --light-sq: #f0d9b5;
+            --dark-sq: #b58863;
+            --highlight: rgba(255, 255, 0, 0.4);
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #2c3e50;
+            color: white;
+            font-family: sans-serif;
+        }
+        #board {
+            display: grid;
+            grid-template-columns: repeat(8, 60px);
+            grid-template-rows: repeat(8, 60px);
+            border: 5px solid #333;
+            user-select: none;
+        }
+        .square {
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 40px;
+            cursor: pointer;
+        }
+        .light { background-color: var(--light-sq); }
+        .dark { background-color: var(--dark-sq); }
+        .piece {
+            cursor: grab;
+            transition: transform 0.1s;
+        }
+        .piece:active { cursor: grabbing; }
+        .info { margin-top: 20px; text-align: center; }
+    </style>
+</head>
+<body>
+    <h2>Simple Chess</h2>
+    <div id="board"></div>
+    <div class="info">
+        <p id="status">White's Turn</p>
+        <button onclick="resetBoard()">Reset Game</button>
+    </div>
+
+   <script>const boardElement = document.getElementById('board');
+const statusText = document.getElementById('status');
+
+const pieces = {
+    r: '♜', n: '♞', b: '♝', q: '♛', k: '♚', p: '♟',
+    R: '♖', N: '♘', B: '♗', Q: '♕', K: '♔', P: '♙'
+};
+const startingFEN = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR";
+let turn = 'w'; 
+let selectedSquare = null;
+
+function createBoard() {
+    boardElement.innerHTML = '';
+    for (let i = 0; i < 64; i++) {
+        const square = document.createElement('div');
+        square.classList.add('square');
+        square.classList.add((Math.floor(i / 8) + i) % 2 === 0 ? 'light' : 'dark');
+        square.dataset.index = i;
+        square.onclick = () => handleSquareClick(i);
+        boardElement.appendChild(square);
+    }
+    loadFEN(startingFEN);
+}
+
+function loadFEN(fen) {
+    const squares = document.querySelectorAll('.square');
+    const rows = fen.split(' ')[0].split('/');
+    let i = 0;
+    rows.forEach(row => {
+        for (let char of row) {
+            if (isNaN(char)) {
+                squares[i].innerHTML = `<span class="piece">${pieces[char]}</span>`;
+                squares[i].dataset.piece = char;
+                i++;
+            } else {
+                for (let j = 0; j < parseInt(char); j++) {
+                    squares[i].innerHTML = '';
+                    squares[i].removeAttribute('data-piece');
+                    i++;
+                }
+            }
+        }
+    });
+}
+
+function handleSquareClick(index) {
+    const squares = document.querySelectorAll('.square');
+    const piece = squares[index].dataset.piece;
+
+    if (selectedSquare !== null) {
+        if (isValidMove(selectedSquare, index)) {
+            movePiece(selectedSquare, index);
+        } else {
+            deselect();
+            if (piece && isOwnPiece(piece)) {
+                selectSquare(index);
+            }
+        }
+        return;
+    }
+
+    if (piece && isOwnPiece(piece)) {
+        selectSquare(index);
+    }
+}
+
+function isOwnPiece(piece) {
+    return (turn === 'w' && piece === piece.toUpperCase()) || 
+           (turn === 'b' && piece === piece.toLowerCase());
+}
+
+function selectSquare(index) {
+    selectedSquare = index;
+    document.querySelectorAll('.square')[index].style.backgroundColor = 'var(--highlight)';
+}
+
+function isValidMove(from, to) {
+    const squares = document.querySelectorAll('.square');
+    const piece = squares[from].dataset.piece.toLowerCase();
+    const targetPiece = squares[to].dataset.piece;
+    
+    // 1. Cannot capture own piece
+    if (targetPiece && isOwnPiece(targetPiece)) return false;
+
+    const fromR = Math.floor(from / 8), fromC = from % 8;
+    const toR = Math.floor(to / 8), toC = to % 8;
+    const dr = toR - fromR, dc = toC - fromC;
+
+    // 2. Logic per piece type
+    switch (piece) {
+        case 'p': // Pawn
+            const dir = (turn === 'w') ? -1 : 1;
+            const startRow = (turn === 'w') ? 6 : 1;
+            // Move forward
+            if (dc === 0 && !targetPiece) {
+                if (dr === dir) return true;
+                if (fromR === startRow && dr === 2 * dir && !squares[from + 8 * dir].dataset.piece) return true;
+            }
+            // Capture
+            if (Math.abs(dc) === 1 && dr === dir && targetPiece) return true;
+            return false;
+
+        case 'r': // Rook
+            if (dr !== 0 && dc !== 0) return false;
+            return isPathClear(from, to);
+
+        case 'n': // Knight
+            return (Math.abs(dr) === 2 && Math.abs(dc) === 1) || (Math.abs(dr) === 1 && Math.abs(dc) === 2);
+
+        case 'b': // Bishop
+            if (Math.abs(dr) !== Math.abs(dc)) return false;
+            return isPathClear(from, to);
+
+        case 'q': // Queen
+            if (Math.abs(dr) !== Math.abs(dc) && dr !== 0 && dc !== 0) return false;
+            return isPathClear(from, to);
+
+        case 'k': // King
+            return Math.abs(dr) <= 1 && Math.abs(dc) <= 1;
+    }
+    return false;
+}
+
+function isPathClear(from, to) {
+    const squares = document.querySelectorAll('.square');
+    const fromR = Math.floor(from / 8), fromC = from % 8;
+    const toR = Math.floor(to / 8), toC = to % 8;
+    
+    const stepR = toR === fromR ? 0 : (toR > fromR ? 1 : -1);
+    const stepC = toC === fromC ? 0 : (toC > fromC ? 1 : -1);
+    
+    let currR = fromR + stepR;
+    let currC = fromC + stepC;
+    
+    while (currR !== toR || currC !== toC) {
+        if (squares[currR * 8 + currC].dataset.piece) return false;
+        currR += stepR;
+        currC += stepC;
+    }
+    return true;
+}
+
+function movePiece(from, to) {
+    const squares = document.querySelectorAll('.square');
+    const movingPiece = squares[from].dataset.piece;
+    
+    squares[to].innerHTML = `<span class="piece">${pieces[movingPiece]}</span>`;
+    squares[to].dataset.piece = movingPiece;
+    squares[from].innerHTML = '';
+    squares[from].removeAttribute('data-piece');
+    
+    deselect();
+    turn = turn === 'w' ? 'b' : 'w';
+    statusText.innerText = `${turn === 'w' ? "White" : "Black"}'s Turn`;
+}
+
+function deselect() {
+    if (selectedSquare !== null) {
+        const squares = document.querySelectorAll('.square');
+        const i = selectedSquare;
+        squares[i].style.backgroundColor = (Math.floor(i / 8) + i) % 2 === 0 ? 'var(--light-sq)' : 'var(--dark-sq)';
+        selectedSquare = null;
+    }
+}
+
+function resetBoard() {
+    turn = 'w';
+    statusText.innerText = "White's Turn";
+    createBoard();
+}
+
+createBoard();
+</script>
+</body>
+</html>
