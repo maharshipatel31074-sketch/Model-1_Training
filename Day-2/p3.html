@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Student Registration Form</title>
+</head>
+
+<body>
+
+    <header>
+        <center>
+            <h1 id="home">Student Registration Form</h1>
+        </center>
+    </header>
+
+    <nav> 
+        <a href="#home">HOME</a> |
+        <a href="#sign-up">Sign-up</a> |
+        <a href="#sign-in">Sign-in</a> |
+        <a href="#about">ABOUT</a> |
+        <a href="#contact">CONTACT</a>
+
+        <hr>
+    </nav>
+
+    <main>
+
+        <section id="sign-up">
+
+            <article>
+
+                <form>
+                    <fieldset> 
+
+                        <h2>Student Information</h2>
+
+                        <label>Name :</label>
+                        <input type="text" required>
+                        <br><br>
+
+                        <label>Enrollment No. :</label>
+                        <input type="text" minlength="12" maxlength="12" required>
+                        <br><br>
+
+                        <label>Branch :</label>
+                        <select required>
+                            <option>CSE</option>
+                            <option>IT</option>
+                            <option>CE</option>
+                            <option>ME</option>
+                            <option>EC</option>
+                        </select>
+                        <br><br>
+
+                        <label>Division :</label>
+                        <input type="text" size="1" maxlength="1" required>
+                        <br><br>
+
+                        <label>Gender :</label>
+                        <input type="radio" name="gender" checked> Male
+                        <input type="radio" name="gender"> Female
+                        <input type="radio" name="gender"> Other
+                        <br><br>
+
+                        <label>Mobile No. :</label>
+                        <input type="tel" maxlength="10" required>
+                        <br><br>
+
+                        <label>Email :</label>
+                        <input type="email" required>
+                        <br><br>
+
+                        <label>Password :</label>
+                        <input type="password" required>
+                        <br><br>
+
+                        <label>Upload Photo :</label>
+                        <input type="file" required>
+                        <br><br>
+
+                        <label>Remarks :</label>
+                        <textarea rows="4" cols="30" required></textarea>
+                        <br><br>
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Reset">
+                    </fieldset> 
+
+                </form>
+
+            </article>
+
+        </section>
+
+    </main>
+
+    <footer>
+            <p>&copy; 2026 Student Registration Form</p>
+    </footer>
+
+</body>
+</html>

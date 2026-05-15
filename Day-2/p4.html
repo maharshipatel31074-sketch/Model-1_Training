@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>CSS Types</title>
+
+    <link rel="stylesheet" href="style.css">
+
+    <style>
+
+        body{
+            background-color: lightyellow;
+            margin: 0;
+            font-family: Arial;
+        }
+
+        header{
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        #img-box{
+            width: 350px;
+            height: auto;
+        }
+
+        #logo-box{
+            font-size: 40px;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 800;
+            color: rgb(249, 22, 6);
+            text-align: center;
+        }
+
+        h1{
+            width: 100%;
+            color: rgb(17, 17, 220);
+            text-align: center;
+        }
+
+        nav{
+            background-color: lightgray;
+            padding: 10px;
+        }
+
+        nav ul{
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a{
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        form{
+            background-color: lightblue;
+            padding: 20px;
+            width: 450px;
+            margin: auto;
+            border: 2px solid black;
+        }
+
+        label{
+            color: darkred;
+        }
+
+        footer{
+            text-align: center;
+            padding: 10px;
+        }
+
+    </style>
+
+</head>
+
+<body>
+
+    <header>
+
+        <img id="img-box"
+             src="https://silveroakuni.ac.in/assets/images/logo/sou-l.svg">
+
+        <div id="logo-box">
+            SILVER OAK UNIVERSITY
+        </div>
+
+        <h1 id="home">Student Registration Form</h1>
+
+    </header>
+
+    <nav>
+
+        <ul>
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#sign-up">Sign-up</a></li>
+            <li><a href="#sign-in">Sign-in</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+        </ul>
+
+    </nav><br>
+
+    <main>
+
+        <section id="sign-up">
+
+            <article>
+
+                <form style="border-radius:10px;">
+
+                    <h2 align="center">Student Information</h2>
+
+                        <label>Name :</label>
+                        <input type="text" required>
+                        <br><br>
+
+                        <label>Enrollment No. :</label>
+                        <input type="text" minlength="12" maxlength="12" required>
+                        <br><br>
+
+                        <label>Branch :</label>
+
+                        <select required>
+                            <option>CSE</option>
+                            <option>IT</option>
+                            <option>CE</option>
+                            <option>ME</option>
+                            <option>EC</option>
+                        </select>
+
+                        <br><br>
+
+                        <label>Division :</label>
+                        <input type="text" size="1" maxlength="1" required>
+
+                        <br><br>
+
+                        <label>Gender :</label>
+
+                        <input type="radio" name="gender" checked> Male
+
+                        <input type="radio" name="gender"> Female
+
+                        <input type="radio" name="gender"> Other
+
+                        <br><br>
+
+                        <label>Mobile No. :</label>
+                        <input type="tel" maxlength="10" required>
+
+                        <br><br>
+
+                        <label>Email :</label>
+                        <input type="email" required>
+
+                        <br><br>
+
+                        <label>Password :</label>
+                        <input type="password" required>
+
+                        <br><br>
+
+                        <label>Upload Photo :</label>
+                        <input type="file" required>
+
+                        <br><br>
+
+                        <label>Remarks :</label>
+
+                        <textarea rows="4" cols="30" required></textarea>
+
+                        <br><br>
+
+                        <div style="text-align:center;">
+
+                            <input type="submit" value="Submit">
+
+                            <input type="reset" value="Reset">
+
+                        </div>
+
+
+                </form>
+
+            </article>
+
+        </section>
+
+       
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Student Registration Form</p>
+    </footer>
+
+</body>
+
+</html>

@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Birthday Invitation Card</title>
+
+    <style>
+        body{
+            background: linear-gradient(to right, pink, lightblue);
+            font-family: Arial;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+        }
+
+        .card{
+            width: 85%;
+            margin: 30px auto;
+            background-color: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0px 0px 10px gray;
+        }
+
+        h1{
+            color: deeppink;
+            font-size: 40px;
+        }
+
+        h2{
+            color: darkblue;
+        }
+
+        p{
+            font-size: 20px;
+        }
+
+        .grid-container{
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .box{
+            background-color: #f8f8f8;
+            padding: 15px;
+            border-radius: 15px;
+            box-shadow: 0px 0px 5px gray;
+        }
+
+        img, video, iframe{
+            width: 100%;
+            height: 250px;
+            border-radius: 15px;
+        }
+
+        audio{
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        @media(max-width:700px){
+            .grid-container{
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="card">
+
+        <h1>🎉 Birthday Party Invitation 🎂</h1>
+
+        <h2>You Are Invited!</h2>
+
+        <p>
+            Join us to celebrate the birthday party of 
+            <b>Maharshi Patel</b>
+        </p>
+
+        <p>
+            📅 Date: 03 JUNE 2026 <br>
+            🕒 Time: 6:00 PM <br>
+            📍 Venue: Ahmedabad, Gujarat
+        </p>
+
+        <audio controls >
+                    <source src="https://www.orangefreesounds.com/wp-content/uploads/2016/08/Happy-birthday-instrumental.mp3" type="audio/mpeg">
+        </audio>
+
+        <div class="grid-container">
+
+            <div class="box">
+                <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?q=80&w=1200&auto=format&fit=crop">
+            </div>
+
+            <div class="box">
+                <video controls>
+                    <source src="https://media.tenor.com/6kCKz8kJ6sEAAAAC/birthday-candle.gif" type="video/gif">
+                </video>
+            </div>
+            
+            <div class="box" >
+                <h2>Party Location</h2>
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.8297563153747!2d72.66343099890116!3d22.99328696493375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87e66917d1e1%3A0x474e87dbd2ddc8a!2sShreenath%20hill!5e0!3m2!1sen!2sin!4v1778609418807!5m2!1sen!2sin" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+            </div>
+
+        </div>
+
+        <br>
+
+        <p>
+            🎁 We are waiting for your presence 🎈
+        </p>
+
+    </div>
+
+</body>
+</html>

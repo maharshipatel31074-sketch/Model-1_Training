@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Animated Registration Form(Practical 5)</title>
+
+    <style>
+        body 
+        {
+            background: linear-gradient(to right, #74ebd5, #acb6e5);
+            font-family: Arial, sans-serif;
+        }
+         .form-box 
+        {
+            width: 400px;
+            background-color: white;
+            margin: 80px auto;
+            padding: 25px;
+            border-radius: 10px;
+            animation: slideForm 5s ease;
+        }
+
+        @keyframes slideForm {
+            from {
+                opacity: 0;
+                transform: translateY(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input, select {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0 15px;
+            border: 1px solid #aaa;
+            border-radius: 5px;
+            transition: border-color 0.4s;
+        }
+
+        input:focus, select:focus 
+        {
+            border-color: #4CAF50;
+            outline: 10;
+        }
+
+        .gender
+        {
+            margin-bottom: 15px;
+        }
+
+        .gender input {
+            width: auto;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            border: none;
+            background-color: #4CAF50;
+            color: white;
+            font-size: 16px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.5s, transform 0.5s;
+        }
+        button.hover
+        {
+            background-color: #2e8b57;
+            transform: scale(1.5);
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="form-box">
+    <h2><u>Registration Form</u></h2>
+
+    <form>
+        <label>Name</label>
+        <input type="text" placeholder="Enter your name">
+
+        <label>Email</label>
+        <input type="email" placeholder="Enter your email">
+
+        <label>Password</label>
+        <input type="password" placeholder="Enter password">
+
+        <label>City</label>
+        <select>
+            <option>Select City</option>
+            <option>Delhi</option>
+            <option>Mumbai</option>
+            <option>Pune</option>
+            <option>Ahmedabad</option>
+            <option>Chennai</option>
+            <option>Kolkata</option>
+        </select>
+
+        <div class="gender">
+            <label>Gender</label><br>
+            <input type="radio" name="gender"> Male
+            <input type="radio" name="gender"> Female
+            <input type="radio" name="gender"> Other
+        </div>
+
+        <button type="submit">Register</button>
+        <p align="right">&copy; student form</p>
+    </form>
+</div>
+
+</body>
+</html>
