@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maharshi Medical Equipment</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        html {
+            scroll-behavior: smooth;
+        }
+        section {
+            padding-top: 5rem;
+            min-height: 100vh;
+        }
+        .section-title::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: #3498db;
+            margin: 10px auto 0 auto;
+        }
+        #home {
+            background: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://picsum.photos/1920/1080?blur=4') no-repeat center center/cover;
+        }
+        .gallery-item {
+            overflow: hidden;
+            height: 250px;
+        }
+        .gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+        .gallery-item:hover img {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-light text-dark">
+
+    <nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top shadow">
+        <div class="container-fluid px-4">
+            <a class="navbar-brand fw-bold text-uppercase tracking-wide" href="#home">MAHARSHI MEDICAL EQUIPMENT</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item ms-md-3"><a class="nav-link text-light-50" href="#home">Home</a></li>
+                    <li class="nav-item ms-md-3"><a class="nav-link text-light-50" href="#description">Description</a></li>
+                    <li class="nav-item ms-md-3"><a class="nav-link text-light-50" href="#login">Login</a></li>
+                    <li class="nav-item ms-md-3"><a class="nav-link text-light-50" href="#gallery">Gallery</a></li>
+                    <li class="nav-item ms-md-3"><a class="nav-link text-light-50" href="#contact">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <section id="home" class="d-flex flex-column justify-content-center align-items-center text-center text-white px-3">
+        <h1 class="display-4 fw-bold mb-3">Elevating Patient Care with Precision Medical Technology</h1>
+        <p class="lead mb-4 mx-auto" style="max-width: 600px;">From advanced ventilators to precise diagnostic tools, we provide hospitals and clinics with high-quality, dependable medical equipment.</p>
+        <a href="#description" class="btn btn-primary btn-lg px-4 shadow-sm" style="background-color: #3498db; border-color: #3498db;">Explore More</a>
+    </section>
+
+    <section id="description" class="bg-white d-flex flex-column justify-content-center align-items-center text-center px-4">
+        <h2 class="section-title mb-4 text-secondary-dark fw-semibold">Description</h2>
+        <p class="fs-5 text-muted mx-auto" style="max-width: 800px;">Maharshi Medical Equipment is a trusted supplier of advanced medical devices designed for hospitals, clinics, and critical care units. We bridge the gap between healthcare professionals and cutting-edge medical technology by offering a comprehensive range of equipment—including ventilators, monitors, and diagnostic tools. We prioritize quality, accuracy, and compliance to ensure your facility operates at its absolute best.</p>
+    </section>
+
+    <section id="login" class="bg-light d-flex flex-column justify-content-center align-items-center text-center px-3">
+        <h2 class="section-title mb-4 text-secondary-dark fw-semibold">Account Login</h2>
+        <div class="card p-4 shadow-sm w-100" style="max-width: 400px; text-align: left;">
+            <form onsubmit="event.preventDefault(); alert('Login clicked!');">
+                <div class="mb-3">
+                    <label for="email" class="form-label fw-semibold">Email Address</label>
+                    <input type="email" class="form-control" id="email" required placeholder="Enter your email">
+                </div>
+                <div class="mb-4">
+                    <label for="password" class="form-label fw-semibold">Password</label>
+                    <input type="password" class="form-control" id="password" required placeholder="Enter your password">
+                </div>
+                <button type="submit" class="btn btn-dark w-100 py-2">Sign In</button>
+            </form>
+        </div>
+    </section>
+
+    <section id="gallery" class="bg-white d-flex flex-column justify-content-center align-items-center py-5 px-4">
+        <h2 class="section-title mb-5 text-secondary-dark fw-semibold">Our Gallery</h2>
+        <div class="container" style="max-width: 1200px;">
+            <div class="row g-4">
+                <div class="col-12 col-sm-4">
+                    <div class="gallery-item rounded shadow-sm">
+                        <img src="card.jpeg" alt="visiting card">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="gallery-item rounded shadow-sm">
+                        <img src="syringe-50c6.png" class="img-fluid" alt="syringe-50c6">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="gallery-item rounded shadow-sm">
+                        <img src="CAREWELL_M4_FRONT__68091.1409452727.1280.1280.jpg" class="img-fluid" alt="CAREWELL_M4_FRONT__68091">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="gallery-item rounded shadow-sm">
+                        <img src="oxygen-concentrator-240a.jpg" class="img-fluid" alt="oxygen-concentrator-240a">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="gallery-item rounded shadow-sm">
+                        <img src="a07e22dc.jpg" class="img-fluid" alt="Precision Ultrasound">
+                    </div>
+                </div>
+                <div class="col-12 col-sm-4">
+                    <div class="gallery-item rounded shadow-sm">
+                        <img src="data:image/jpeg;base64,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" class="img-fluid" alt="Eye Patch">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="bg-light py-5 px-4">
+        <div class="container" style="max-width: 1100px;">
+            <h2 class="section-title text-center mb-5 text-secondary-dark fw-semibold">Contact Us</h2>
+            <div class="row g-4 align-items-stretch">
+                <div class="col-12 col-md-5">
+                    <div class="card h-100 p-4 border-0 shadow-sm bg-white">
+                        <h3 class="h4 mb-3 text-secondary-dark">Get in Touch</h3>
+                        <p class="text-muted"><strong>Address:</strong> Shreenath hill, Alok Rd, Mahadev Nagar Tekra, Ahmedabad, Gujarat 382418</p>
+                        <p class="text-muted"><strong>Phone:</strong> +91 9725729633</p>
+                        <p class="text-muted"><strong>Email:</strong> ashokpatel31074@gmail.com</p>
+                        <p class="text-muted mb-0"><strong>Hours:</strong> Mon - Sat: 9:00 AM - 8:00 PM</p>
+                    </div>
+                </div>
+                <div class="col-12 col-md-7">
+                    <div class="ratio ratio-16x9 h-100 rounded shadow-sm overflow-hidden">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3672.8297563153747!2d72.66343099890116!3d22.99328696493375!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x395e87e66917d1e1%3A0x474e87dbd2ddc8a!2sShreenath%20hill!5e0!3m2!1sen!2sin!4v1778609418807!5m2!1sen!2sin" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="bg-dark text-center py-4 border-top border-secondary">
+        <p class="text-muted small mb-0">&copy; 2026 Maharshi Medical Equipment. All Rights Reserved.</p>
+    </footer>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
