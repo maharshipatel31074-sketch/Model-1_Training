@@ -1,0 +1,340 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Registration Form</title>
+
+    <link rel="stylesheet" href="style.css">
+
+     <style> 
+        body {
+            background-color: lightyellow;
+            margin: 0;
+            font-family: Arial, sans-serif;
+        }
+
+        header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        #img-box {
+            width: 350px;
+            height: auto;
+        }
+
+        #logo-box {
+            font-size: 40px;
+            font-family: 'Times New Roman', Times, serif;
+            font-weight: 800;
+            color: rgb(249, 22, 6);
+            text-align: center;
+        }
+
+        h1 {
+            width: 100%;
+            color: rgb(17, 17, 220);
+            text-align: center;
+        }
+
+        nav {
+            background-color: lightgray;
+            padding: 10px;
+        }
+
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+            gap: 20px;
+            margin: 0;
+            padding: 0;
+        }
+
+        nav ul li a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+        }
+
+        form {
+            background-color: lightblue;
+            padding: 20px;
+            width: 450px;
+            margin: auto;
+            border: 2px solid black;
+        }
+
+        label {
+            color: darkred;
+            display: inline-block;
+            width: 130px;
+            margin-bottom: 5px;
+        }
+
+        input:focus:invalid,
+        select:focus:invalid,
+        textarea:focus:invalid {
+            border: 2px solid red;
+            outline: none;
+        }
+
+        input:focus:valid,
+        select:focus:valid,
+        textarea:focus:valid {
+            border: 2px solid green;
+            outline: none;
+        }
+
+        footer {
+            text-align: center;
+            padding: 10px;
+            position: relative;
+            animation: moveFooter 10s linear infinite;
+        }
+
+        @keyframes moveFooter {
+            from {
+                transform: translateX(100%);
+            }
+
+            to {
+                transform: translateX(-100%);
+            }
+        }
+    </style> 
+</head>
+
+<body>
+
+    <header>
+        <img id="img-box" src="https://silveroakuni.ac.in/assets/images/logo/sou-l.svg" alt="University Logo">
+        <div id="logo-box">SILVER OAK UNIVERSITY</div>
+        <h1 id="home">Student Registration Form</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#home">HOME</a></li>
+            <li><a href="#sign-up">Sign-up</a></li>
+            <li><a href="#sign-in">Sign-in</a></li>
+            <li><a href="#about">ABOUT</a></li>
+            <li><a href="#contact">CONTACT</a></li>
+        </ul>
+    </nav><br>
+
+    <main>
+        <section id="sign-up">
+            <article>
+                <form id="registrationForm" style="border-radius:10px;" novalidate>
+                    <h2 align="center">Student Information</h2>
+
+                    <div>
+                        <label for="studentName">Name :</label>
+                        <input type="text" id="studentName" pattern="[A-Za-z\s]{3,50}"
+                            title="Name should only contain letters and spaces (min 3 characters)" required>
+                    </div><br>
+
+                    <div>
+                        <label for="enrollmentNo">Enrollment No. :</label>
+                        <input type="text" id="enrollmentNo" pattern="\d{13}"
+                            title="Enrollment number must be exactly 12 digits" required>
+                    </div><br>
+
+                    <div>
+                        <label for="branch">Branch :</label>
+                        <select id="branch" required>
+                            <option value="">-- Select Branch --</option>
+                            <option value="CSE">CSE</option>
+                            <option value="IT">IT</option>
+                            <option value="CE">CE</option>
+                            <option value="ME">ME</option>
+                            <option value="EC">EC</option>
+                        </select>
+                    </div><br>
+
+                    <div>
+                        <label for="division">Division :</label>
+                        <input type="text" id="division" pattern="[A-Za-z]"
+                            title="Division should be a single letter (e.g., A, B, C)" required>
+                    </div><br>
+
+                    <div>
+                        <label>Gender :</label>
+                        <input type="radio" name="gender" id="male" value="Male" checked> <label for="male"
+                            style="width:auto; color:black; font-weight:normal;">Male</label>
+                        <input type="radio" name="gender" id="female" value="Female"> <label for="female"
+                            style="width:auto; color:black; font-weight:normal;">Female</label>
+                        <input type="radio" name="gender" id="other" value="Other"> <label for="other"
+                            style="width:auto; color:black; font-weight:normal;">Other</label>
+                    </div><br>
+
+                    <div>
+                        <label for="mobileNo">Mobile No. :</label>
+                        <input type="tel" id="mobileNo" pattern="[6-9]\d{9}"
+                            title="Please enter a valid 10-digit mobile number starting with 6-9" required>
+                    </div><br>
+
+                    <div>
+                        <label for="email">Email :</label>
+                        <input type="email" id="email" required>
+                    </div><br>
+
+                    <div>
+                        <label for="password">Password :</label>
+                        <input type="password" id="password" minlength="8"
+                            title="Password must be at least 8 characters long" required>
+                    </div><br>
+
+                    <div>
+                        <label for="photo">Upload Photo :</label>
+                        <input type="file" id="photo" accept="image/*" required>
+                    </div><br>
+
+                    <div>
+                        <label for="remarks">Remarks :</label>
+                        <textarea id="remarks" rows="4" cols="30" minlength="10"
+                            title="Please enter at least 10 characters" required></textarea>
+                    </div><br>
+
+                    <div style="text-align:center;">
+                        <input type="submit" value="Submit">
+                        <input type="reset" value="Reset">
+                    </div>
+                </form>
+            </article>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Student Registration Form</p>
+    </footer>
+
+    <script>
+        const VALIDATION_PATTERNS = {
+            name: /^[A-Za-z\s]{3,50}$/,
+            enrollment: /^\d{13}$/,
+            division: /^[A-Za-z]$/,
+            mobile: /^[6-9]\d{9}$/,
+            email: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/,
+            allowedImages: /(\.jpg|\.jpeg|\.png)$/i
+        };
+
+        document.getElementById('registrationForm').addEventListener('submit', function (event) {
+            event.preventDefault();
+
+            const name = document.getElementById('studentName');
+            const enrollment = document.getElementById('enrollmentNo');
+            const branch = document.getElementById('branch');
+            const division = document.getElementById('division');
+            const mobile = document.getElementById('mobileNo');
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const photo = document.getElementById('photo');
+            const remarks = document.getElementById('remarks');
+
+            if (!name.value.trim()) {
+                alert("Please enter your name.");
+                name.focus();
+                return;
+            }
+            if (!VALIDATION_PATTERNS.name.test(name.value)) {
+                alert("Name should only contain letters and spaces (minimum 3 characters, maximum 50).");
+                name.focus();
+                return;
+            }
+
+            if (!enrollment.value.trim()) {
+                alert("Please enter your enrollment number.");
+                enrollment.focus();
+                return;
+            }
+            if (!VALIDATION_PATTERNS.enrollment.test(enrollment.value)) {
+                alert("Enrollment number must be exactly 12 digits.");
+                enrollment.focus();
+                return;
+            }
+
+            if (!branch.value) {
+                alert("Please select your branch.");
+                branch.focus();
+                return;
+            }
+
+            if (!division.value.trim()) {
+                alert("Please enter your division.");
+                division.focus();
+                return;
+            }
+            if (!VALIDATION_PATTERNS.division.test(division.value)) {
+                alert("Division should be a single letter (e.g., A, B, C).");
+                division.focus();
+                return;
+            }
+
+            if (!mobile.value.trim()) {
+                alert("Please enter your mobile number.");
+                mobile.focus();
+                return;
+            }
+            if (!VALIDATION_PATTERNS.mobile.test(mobile.value)) {
+                alert("Please enter a valid 10-digit mobile number starting with 6, 7, 8, or 9.");
+                mobile.focus();
+                return;
+            }
+
+            if (!email.value.trim()) {
+                alert("Please enter your email address.");
+                email.focus();
+                return;
+            }
+            if (!VALIDATION_PATTERNS.email.test(email.value)) {
+                alert("Please enter a valid email address format (e.g., student@example.com).");
+                email.focus();
+                return;
+            }
+
+            if (!password.value) {
+                alert("Please enter a password.");
+                password.focus();
+                return;
+            }
+            if (password.value.length < 8) {
+                alert("Password must be at least 8 characters long.");
+                password.focus();
+                return;
+            }
+
+            if (photo.files.length === 0) {
+                alert("Please upload your photo.");
+                photo.focus();
+                return;
+            }
+            if (!VALIDATION_PATTERNS.allowedImages.exec(photo.value)) {
+                alert("Only image files (JPG, JPEG, PNG) are allowed for upload.");
+                photo.focus();
+                return;
+            }
+
+            if (!remarks.value.trim()) {
+                alert("Please enter remarks.");
+                remarks.focus();
+                return;
+            }
+            if (remarks.value.trim().length < 10) {
+                alert("Remarks must be at least 10 characters long.");
+                remarks.focus();
+                return;
+            }
+
+            alert('Form submitted successfully!');
+            this.submit();
+        });
+    </script>
+</body>
+
+</html>
