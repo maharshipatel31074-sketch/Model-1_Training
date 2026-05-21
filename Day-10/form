@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Form</title>
+<style>
+        body {
+            background-color: skyblue;   
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        header {
+            background-color: lightblue;
+            border: 2px solid black;     
+            text-align: center;
+            padding: 20px;             
+            margin-bottom: 20px;         
+        }
+
+        main {
+            width: 80%;                 
+            background-color: rgb(255, 255, 255);
+            border: 2px solid gray;
+            padding: 20px;
+            margin: auto;               
+        }
+
+        h1, h2, h3 {
+            font-family: Georgia, serif;
+        }
+
+        input, select {
+            padding: 5px;
+            margin: 5px 0;
+        }
+
+        article {
+            border: 1px solid #ccc;
+            padding: 10px;
+            margin-bottom: 15px;
+        }
+
+        footer {
+            text-align: center;
+            background-color: lightgray;
+            padding: 15px;
+            margin-top: 20px;
+        }
+
+        button {
+            height: 35px;               
+            width: 120px;           
+            margin: 5px;
+            font-weight: bold;
+        }
+    </style>>
+<script>
+    function validateForm() 
+    {
+        var name = document.getElementById("501").value;
+        var password = document.getElementById("502").value;
+        var password2 = document.getElementById("503").value;
+
+        if (name === "" || password === "" || password2 === "") 
+        {
+            alert("All fields must be filled");
+            return false;
+        }
+        var count = 0;
+
+        for (var i = 0; i < password.length; i++) {
+        count++;
+        }
+
+        if (count < 8) {
+        alert("Password must be at least 8 characters long");
+        return false;
+        }
+
+        if (password !== password2) 
+        {
+            alert("Password does not match. Try again!");
+            return false;
+        }
+
+        alert("Form submitted successfully!");
+        return true;
+    }
+</script>
+</head>
+
+<body>
+
+<form onsubmit="return validateForm();">
+
+<header>
+    
+    <h2><u>REGISTRATION FORM</u></h2>
+
+    </header>
+
+<main>
+
+    <label>NAME:</label>
+    <input type="text" id="501" placeholder="Enter your name"><br><br>
+
+    <label>PASSWORD:</label>
+    <input type="password" id="502" placeholder="Enter your password"><br><br>
+
+    <label>CONFIRM PASSWORD:</label>
+    <input type="password" id="503" placeholder="Re-enter your password"><br><br>
+
+</main>
+
+<footer>
+    <button onclick="validateForm()">SUBMIT</button>
+</footer>
+
+</form>
+</body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Math Functions</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f4f4f9;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            background: white;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #008060;
+            color: white;
+        }
+        tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body>
+
+    <h2>JavaScript Math Methods Execution</h2>
+    
+    <table>
+        <thead>
+            <tr>
+                <th>Method</th>
+                <th>Expression Used</th>
+                <th>Result</th>
+            </tr>
+        </thead>
+        <tbody id="resultsTable"></tbody>
+    </table>
+
+    <script>
+        const tableBody = document.getElementById('resultsTable');
+
+        function addRow(method, expression, result) {
+            const row = document.createElement('tr');
+            row.innerHTML = `<td><strong>${method}</strong></td><td><code>${expression}</code></td><td>${result}</td>`;
+            tableBody.appendChild(row);
+        }
+
+        addRow('abs(x)', 'Math.abs(-5.5)', Math.abs(-5.5));
+        addRow('sin(x)', 'Math.sin(Math.PI / 2)', Math.sin(Math.PI / 2));
+        addRow('cos(x)', 'Math.cos(0)', Math.cos(0));
+        addRow('tan(x)', 'Math.tan(Math.PI / 4)', Math.tan(Math.PI / 4));
+        addRow('acos(x)', 'Math.acos(0.5)', Math.acos(0.5));
+        addRow('asin(x)', 'Math.asin(0.5)', Math.asin(0.5));
+        addRow('atan(x)', 'Math.atan(1)', Math.atan(1));
+        addRow('atan2(x)', 'Math.atan2(1, 1)', Math.atan2(1, 1));
+        addRow('random()', 'Math.random()', Math.random());
+        addRow('exp(x)', 'Math.exp(1)', Math.exp(1));
+        addRow('ceil(x)', 'Math.ceil(4.2)', Math.ceil(4.2));
+        addRow('floor(x)', 'Math.floor(4.7)', Math.floor(4.7));
+        addRow('log(x)', 'Math.log(Math.E)', Math.log(Math.E));
+        addRow('round(x)', 'Math.round(4.5)', Math.round(4.5));
+        addRow('pow(x,y)', 'Math.pow(2, 3)', Math.pow(2, 3));
+        addRow('max(x,y,z,...,n)', 'Math.max(5, 10, 15, 3)', Math.max(5, 10, 15, 3));
+        addRow('sqrt(x)', 'Math.sqrt(16)', Math.sqrt(16));
+    </script>
+
+</body>
+</html>
