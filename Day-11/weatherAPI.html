@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather API</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            color: #ffffff;
+        }
+        .weather-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            padding: 30px;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 450px;
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+        h2 {
+            font-weight: 500;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+        }
+        .search-box {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .search-box input {
+            flex: 1;
+            padding: 12px 20px;
+            border: none;
+            border-radius: 30px;
+            outline: none;
+            font-size: 16px;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+        }
+        .search-box input::placeholder {
+            color: #ddd;
+        }
+        .search-box button {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 30px;
+            background: #fff;
+            color: #2a5298;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+        .search-box button:hover {
+            background: #e0e0e0;
+            transform: scale(1.05);
+        }
+        .error-message {
+            color: #ff6b6b;
+            margin-bottom: 15px;
+            display: none;
+            font-weight: 500;
+        }
+        .weather-info {
+            display: none; 
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .city {
+            font-size: 28px;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+        .temp {
+            font-size: 64px;
+            font-weight: 700;
+            margin: 10px 0;
+        }
+        .description {
+            font-size: 18px;
+            text-transform: capitalize;
+            margin-bottom: 25px;
+            opacity: 0.9;
+        }
+        .details-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 20px;
+        }
+        .detail-item {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 15px;
+            border-radius: 12px;
+        }
+        .detail-item label {
+            display: block;
+            font-size: 12px;
+            text-transform: uppercase;
+            opacity: 0.6;
+            margin-bottom: 5px;
+        }
+        .detail-item span {
+            font-size: 18px;
+            font-weight: 600;
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-container">
+        <h2>Weather Forecast</h2>
+        <div class="search-box">
+            <input type="text" id="city-input" placeholder="Enter city name..." autocomplete="off">
+            <button id="search-btn">Search</button>
+        </div>
+        <div class="error-message" id="error-msg">City not found. Please try again!</div>
+        <div class="weather-info" id="weather-info">
+            <div class="city" id="city-name">London, GB</div>
+            <div class="temp" id="temperature">15°C</div>
+            <div class="description" id="description">Cloudy</div>
+            <div class="details-grid">
+                <div class="detail-item">
+                    <label>Humidity</label>
+                    <span id="humidity">72%</span>
+                </div>
+                <div class="detail-item">
+                    <label>Wind Speed</label>
+                    <span id="wind-speed">4.2 m/s</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_KEY = '552121e7d08fc288b36b57ffff20abd6'; 
+        const searchBtn = document.getElementById('search-btn');
+        const cityInput = document.getElementById('city-input');
+        const weatherInfoDiv = document.getElementById('weather-info');
+        const errorMsg = document.getElementById('error-msg');
+        searchBtn.addEventListener('click', () => {
+            getWeather(cityInput.value.trim());
+        });
+        cityInput.addEventListener('keypress', (event) => {
+            if (event.key === 'Enter') {
+                getWeather(cityInput.value.trim());
+            }
+        });
+        async function getWeather(city) {
+            if (!city) return;
+            const url = `https://api.openweathermap.org/data/2.5/weather?q=${encodeURIComponent(city)}&appid=${API_KEY}&units=metric`;
+            try {
+                const response = await fetch(url);
+                if (!response.ok) {
+                    throw new Error('City not found');
+                }
+                const data = await response.json();
+                displayWeather(data);
+            } catch (error) {
+                errorMsg.style.display = 'block';
+                weatherInfoDiv.style.display = 'none';
+                console.error(error);
+            }
+        }
+        function displayWeather(data) {
+            errorMsg.style.display = 'none';
+            document.getElementById('city-name').innerText = `${data.name}, ${data.sys.country}`;
+            document.getElementById('temperature').innerText = `${Math.round(data.main.temp)}°C`;
+            document.getElementById('description').innerText = data.weather[0].description;
+            document.getElementById('humidity').innerText = `${data.main.humidity}%`;
+            document.getElementById('wind-speed').innerText = `${data.wind.speed} m/s`;
+            weatherInfoDiv.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
