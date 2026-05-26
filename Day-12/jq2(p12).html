@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Move Div Between Boxes</title>
+    <style>
+        .container {
+            width: 200px;
+            height: 200px;
+            display: inline-block;
+            margin: 20px;
+            padding: 15px;
+            vertical-align: top;
+            border: 3px solid #333;
+            border-radius: 8px;
+        }
+        #box1 { background-color: #ff9999; }
+        #box2 { background-color: #99ccff; } 
+        #mover {
+            width: 100px;
+            height: 100px;
+            background-color: #ffaa00;  
+            border: 2px solid #cc6600;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-family: Arial, sans-serif;
+            font-weight: bold;
+            color: white;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        }
+
+        button {
+            display: block;
+            margin: 20px ;
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+            background-color: #333;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+        }
+        button:hover { background-color: #555; }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <button id="moveBtn">Move Box</button>
+    <div id="box1" class="container">
+        <h3>Box 1</h3>
+        <div id="mover">Mover</div>
+    </div>
+    <div id="box2" class="container">
+        <h3>Box 2</h3>
+    </div>
+    <script>
+        $(document).ready(function(){
+            $("#moveBtn").click(function(){
+                if ($("#box1").has("#mover").length > 0) {
+                    $("#mover").appendTo("#box2");
+                } else {
+                    $("#mover").appendTo("#box1");
+                }
+            });
+        });
+    </script>
+</body>
+</html>

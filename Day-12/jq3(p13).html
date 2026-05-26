@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Remove Row</title>
+    <style>
+        table { width: 100%; border-collapse: collapse; font-family: Arial, sans-serif; }
+        th, td { padding: 12px; border: 1px solid #ddd; text-align: left; }
+        th { background-color: #333; color: white; }
+        button { cursor: pointer; padding: 5px 10px; background-color: #ff4444; color: white; border: none; border-radius: 4px; }
+        button:hover { background-color: #cc0000; }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>101</td>
+                <td>Maharshi Patel</td>
+                <td><button class="deleteBtn">Delete</button></td>
+            </tr>
+            <tr>
+                <td>102</td>
+                <td>Raudra Joshi</td>
+                <td><button class="deleteBtn">Delete</button></td>
+            </tr>
+            <tr>
+                <td>103</td>
+                <td>Aditya Kalal</td>
+                <td><button class="deleteBtn">Delete</button></td>
+            </tr>
+            <tr>
+                <td>104</td>
+                <td>Devansh Gohel</td>
+                <td><button class="deleteBtn">Delete</button></td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function(){
+            $(".deleteBtn").click(function(){
+                $(this).closest("tr").remove();
+            });
+        });
+    </script>
+</body>
+</html>

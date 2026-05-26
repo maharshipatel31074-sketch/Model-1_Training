@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>jQuery Zebra Stripes Table</title>
+    <style>
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-family: Arial, sans-serif;
+        }
+        th, td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: left;
+        }
+        th {
+            background-color: #333;
+            color: white;
+        }
+        .striped {
+            background-color: #b5b5b5;
+        }
+    </style>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body>
+    <h2>Team Roster</h2>
+    <table id="employeeTable">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Role</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>101</td>
+                <td>Maharshi</td>
+                <td>Developer</td>
+            </tr>
+            <tr>
+                <td>102</td>
+                <td>Devansh</td>
+                <td>Designer</td>
+            </tr>
+            <tr>
+                <td>103</td>
+                <td>Aditya</td>
+                <td>Manager</td>
+            </tr>
+            <tr>
+                <td>104</td>
+                <td>Shubham</td>
+                <td>HR</td>
+            </tr>
+            <tr>
+                <td>105</td>
+                <td>Vipin</td>
+                <td>CEO</td>
+            </tr>
+        </tbody>
+    </table>
+    <script>
+        $(document).ready(function(){
+            $("#employeeTable tbody tr:even").addClass("striped");
+        });
+    </script>
+</body>
+</html>
