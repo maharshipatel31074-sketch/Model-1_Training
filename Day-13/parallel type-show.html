@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+
+<body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
+
+    <div id="root" class="w-full max-w-2xl"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function TextMirror() {
+            const [text, setText] = useState("")
+
+            function handleChange(e) {
+                setText(e.target.value);
+            }
+
+            function handleReset() {
+                setText("");
+            }
+
+            return (
+                <div class="bg-white p-6 rounded-2xl shadow-xl flex flex-col gap-6">
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-gray-700">Type Box:</label>
+                        <textarea
+                            value={text}
+                            onChange={handleChange}
+                            placeholder="Start typing something with multiple lines..."
+                            class="w-full h-32 p-3 border-2 border-gray-300 rounded-xl focus:outline-none focus:border-blue-500 resize-y text-gray-800"
+                        />
+                    </div>
+
+                    <div class="flex flex-col gap-2">
+                        <label class="text-sm font-semibold text-gray-700">Screen Output:</label>
+                        <div class="w-full min-h-32 p-4 bg-gray-50 border-2 border-dashed border-gray-200 rounded-xl text-gray-800 whitespace-pre-wrap break-words">
+                            {text || <span class="text-gray-400 italic">Your output will appear here...</span>}
+                        </div>
+                    </div>
+
+                    <div class="flex justify-end">
+                        <button
+                            onClick={handleReset}
+                            class="px-5 py-2.5 bg-red-500 hover:bg-red-600 active:scale-95 text-white font-semibold rounded-xl transition-all shadow-md focus:outline-none focus:ring-2 focus:ring-red-400"
+                        >
+                            Reset
+                        </button>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<TextMirror />);
+    </script>
+</body>
+
+</html>

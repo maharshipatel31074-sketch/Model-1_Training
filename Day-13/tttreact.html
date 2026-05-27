@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Tic-Tac-Toe</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+    <div id="root"></div>
+    <script type="text/babel">
+        const { useState } = React;
+        function Square({ value, onSquareClick }) {
+            return (
+                <button 
+                    className="w-24 h-24 bg-white border-2 border-gray-300 text-4xl font-bold text-gray-800 hover:bg-gray-50 flex items-center justify-center rounded-lg shadow-sm transition-all focus:outline-none focus:ring-2 focus:ring-blue-400"
+                    onClick={onSquareClick}
+                >
+                    <span class={value === 'X' ? 'text-blue-600' : 'text-red-500'}>
+                        {value}
+                    </span>
+                </button>
+            );
+        }
+        function Board() {
+            const [squares, setSquares] = useState(Array(9).fill(null));
+            const [xIsNext, setXIsNext] = useState(true);
+            function handleClick(i) {
+                if (squares[i] || calculateWinner(squares)) {
+                    return;
+                }
+                const nextSquares = squares.slice();
+                nextSquares[i] = xIsNext ? 'X' : 'O';
+                setSquares(nextSquares);
+                setXIsNext(!xIsNext);
+            }
+            const winner = calculateWinner(squares);
+            const isDraw = !winner && squares.every(square => square !== null);
+            let status;
+            if (winner) {
+                status = `Winner: ${winner}`;
+            } else if (isDraw) {
+                status = "It's a draw!";
+            } else {
+                status = `Next player: ${xIsNext ? 'X' : 'O'}`;
+            }
+            function handleReset() {
+                setSquares(Array(9).fill(null));
+                setXIsNext(true);
+            }
+            return (
+                <div class="flex flex-col items-center bg-white p-8 rounded-2xl shadow-xl">
+                    <h1 class="text-3xl font-extrabold text-gray-800 mb-6 tracking-wide">Tic-Tac-Toe</h1>
+                    
+                    <div class={`text-xl font-semibold mb-6 px-4 py-2 rounded-full ${winner ? 'bg-green-100 text-green-700' : isDraw ? 'bg-amber-100 text-amber-700' : 'bg-blue-50 text-blue-700'}`}>
+                        {status}
+                    </div>
+                    <div class="grid grid-cols-3 gap-3 mb-6">
+                        {squares.map((square, index) => (
+                            <Square 
+                                key={index} 
+                                value={square} 
+                                onSquareClick={() => handleClick(index)} 
+                            />
+                        ))}
+                    </div>
+
+                    <button 
+                        onClick={handleReset}
+                        class="px-6 py-2 bg-gray-800 text-white font-medium rounded-lg hover:bg-gray-700 transition-colors shadow focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-gray-800"
+                    >
+                        Reset Game
+                    </button>
+                </div>
+            );
+        }
+        function calculateWinner(squares) {
+            const lines = [
+                [0, 1, 2],
+                [3, 4, 5],
+                [6, 7, 8],
+                [0, 3, 6],
+                [1, 4, 7],
+                [2, 5, 8],
+                [0, 4, 8],
+                [2, 4, 6],
+            ];
+            for (let i = 0; i < lines.length; i++) {
+                const [a, b, c] = lines[i];
+                if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
+                    return squares[a];
+                }
+            }
+            return null;
+        }
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<Board />);
+    </script>
+</body>
+</html>
