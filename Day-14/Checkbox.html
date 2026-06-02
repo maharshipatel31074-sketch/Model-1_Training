@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Checkbox Example</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+</head>
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function LikeComponent() {
+            const [isLiked, setIsLiked] = useState(false);
+
+            const handleCheckboxChange = () => {
+                setIsLiked(!isLiked);
+            };
+
+            return (
+                <div>
+                    <label>
+                        <input type="checkbox" checked={isLiked} onChange={handleCheckboxChange} />
+                        I like this
+                    </label>
+                    
+                    <p>
+                        {isLiked ? "You like this" : "You did not like this"}
+                    </p>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<LikeComponent />);
+    </script>
+
+</body>
+</html>

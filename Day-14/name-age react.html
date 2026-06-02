@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>React Counter and Text Sync</title>
+    <script src="https://unpkg.com/react@18/umd/react.development.js" crossorigin></script>
+    <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js" crossorigin></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+</head>
+
+<body>
+
+    <div id="root"></div>
+
+    <script type="text/babel">
+        const { useState } = React;
+
+        function ProfileBuilder() {
+            const [name, setName] = useState("Maharshi");
+            const [age, setAge] = useState(21);
+
+            return (
+                <div className="container">
+
+                    <div className="section">
+                        <label htmlFor="nameInput">Type Name:</label>
+                        <input id="nameInput" type="text" value={name} onChange={(e) => setName(e.target.value)} />
+                    </div>
+
+                    <div className="section">
+                        <label>Age Counter:
+                        <div className="counter-controls"><button onClick={() => setAge(age - 1)}>-</button><span className="age-display">{age}</span><button onClick={() => setAge(age + 1)}>+</button>
+                        </div></label>
+                    </div>
+
+                    <hr />
+
+                    <div className="output-card">
+                        <p> Happy Birthday {name} , you are  {age} years old</p>
+                    </div>
+                </div>
+            );
+        }
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<ProfileBuilder />);
+    </script>
+</body>
+</html>
