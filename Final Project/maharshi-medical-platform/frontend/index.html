@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Maharshi Medical Equipment | Trusted healthcare supplies</title>
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="index.html">Maharshi <span>Medical</span> Equipment</a>
+  <nav>
+    <a href="index.html" class="active">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="repair.html">Repair Service</a>
+    <a href="login.html"><i class="fa-solid fa-user"></i> Login / Register</a>
+    <a href="checkout.html"><i class="fa-solid fa-cart-arrow-down"></i> <span id="cart-count" class="cart-badge">0</span></a>
+  </nav>
+</header>
+
+<section class="hero">
+
+  <div class="hero-bg-illustrations" aria-hidden="true">
+
+  </div>
+
+  <div class="hero-inner">
+    <div class="hero-eyebrow fade-up">Ahmedabad's Trusted Medical Supplier</div>
+    <h1 class="fade-up fade-up-1">Your Health Deserves<br>the <em>Best Equipment.</em></h1>
+    <p class="fade-up fade-up-2">Shop ISO-certified medical devices trusted by thousands of clinics and families across India — with expert support and same-day dispatch.</p>
+    <div class="hero-cta fade-up fade-up-3">
+      <a class="btn" href="shop.html">Browse the Catalogue</a>
+      <a class="btn btn-outline" href="repair.html">Request Repair</a>
+    </div>
+  </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section container fade-up">
+  <div class="contact-grid">
+    <!-- Contact Details -->
+    <div class="contact-info card">
+      <h2>Get in Touch</h2>
+      <ul class="contact-details">
+        <li>
+          <strong>Address:</strong> 
+          <span>Shreenath hill, Alok Rd, Mahadev Nagar Tekra, Ahmedabad, Gujarat 382418</span>
+        </li>
+        <li>
+          <strong>Phone:</strong> 
+          <a href="tel:+919725729633">+91 9725729633</a>
+        </li>
+        <li>
+          <strong>Email:</strong> 
+          <a href="mailto:ashokpatel31074@gmail.com">ashokpatel31074@gmail.com</a>
+        </li>
+        <li>
+          <strong>Hours:</strong> 
+          <span>Mon - SAT: 9:00 AM - 8:00 PM</span>
+        </li>
+      </ul>
+    </div>
+
+    <!-- Google Maps Embed -->
+    <div class="contact-map card" style="padding: 0; overflow: hidden;">
+      <iframe 
+        width="100%" 
+        height="100%" 
+        style="border:0; min-height: 350px; display: block;" 
+        loading="lazy" 
+        allowfullscreen 
+        referrerpolicy="no-referrer-when-downgrade"
+        src="https://maps.google.com/maps?q=Shreenath%20hill,%20Alok%20Rd,%20Mahadev%20Nagar%20Tekra,%20Ahmedabad,%20Gujarat%20382418&t=&z=15&ie=UTF8&iwloc=&output=embed">
+      </iframe>
+    </div>
+  </div>
+</section>
+
+<footer>
+  &copy; 2026 Maharshi Medical Equipment — Trusted healthcare supplies.
+</footer>
+
+<script>
+  function updateGlobalCount() {
+    const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+    document.getElementById('cart-count').textContent = cart.reduce((s,i)=>s+i.quantity, 0);
+  }
+  updateGlobalCount();
+</script>
+</body>
+</html>

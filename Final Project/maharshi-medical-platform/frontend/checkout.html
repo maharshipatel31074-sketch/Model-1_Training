@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Checkout | Maharshi Medical Equipment</title>
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="index.html">Maharshi <span>Medical</span> Equipment</a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html">Shop</a>
+    <a href="repair.html">Repair Service</a>
+    <a href="login.html"><i class="fa-solid fa-user"></i> Login / Register</a>
+    <a href="checkout.html"><i class="fa-solid fa-cart-arrow-down"></i> <span id="cart-count" class="cart-badge">0</span></a>
+  </nav>
+</header>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1>Checkout</h1>
+    <p>Review your cart and complete your order securely</p>
+  </div>
+</div>
+
+<main class="container">
+  <div class="checkout-layout">
+
+    <!-- Cart Items -->
+    <section class="section-card fade-up">
+      <h2>Your Cart Items</h2>
+      <div style="overflow-x:auto;">
+        <table id="cart-table">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Qty</th>
+              <th>Price</th>
+              <th>Subtotal</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+      <div id="grand-total" class="grand-total-box"></div>
+    </section>
+
+    <!-- Delivery Form -->
+    <section class="section-card fade-up fade-up-1">
+      <h2>Delivery Details</h2>
+      <form id="order-form" class="grid-form">
+        <input name="name"    placeholder="Full name"   required />
+        <input name="email"   type="email" placeholder="Email" required />
+        <input name="phone"   placeholder="Phone"       required />
+        <input name="city"    placeholder="City"        required />
+        <input name="pincode" placeholder="PIN code"    required />
+        <select name="paymentMode">
+          <option value="COD">Cash on Delivery</option>
+          <option value="UPI">UPI</option>
+          <option value="CARD">Card</option>
+          <option value="NETBANKING">Net Banking</option>
+        </select>
+        <textarea name="address" placeholder="Street address" required></textarea>
+        <button class="btn" id="submit-btn" type="submit">🔒 Place Order Securely</button>
+      </form>
+      <div id="result"></div>
+    </section>
+
+  </div>
+</main>
+
+<footer>&copy; 2026 Maharshi Medical Equipment</footer>
+
+<script>
+const API = (location.port === '5001' ? '' : 'http://localhost:5001') + '/api';
+let cart = JSON.parse(localStorage.getItem('cart') || '[]');
+
+function saveCartState() {
+  localStorage.setItem('cart', JSON.stringify(cart));
+  document.getElementById('cart-count').textContent = cart.reduce((s,i)=>s+i.quantity, 0);
+  renderCart();
+}
+
+function updateQty(sku, delta) {
+  const item = cart.find(i => i.sku === sku);
+  if (!item) return;
+  item.quantity += delta;
+  if (item.quantity <= 0) removeItem(sku);
+  else saveCartState();
+}
+
+function removeItem(sku) {
+  cart = cart.filter(i => i.sku !== sku);
+  saveCartState();
+}
+
+function renderCart() {
+  const tbody = document.querySelector('#cart-table tbody');
+  document.getElementById('cart-count').textContent = cart.reduce((s,i)=>s+i.quantity, 0);
+
+  if (cart.length === 0) {
+    tbody.innerHTML = `<tr><td colspan="5" style="text-align:center;padding:2.5rem;color:var(--text-muted)">Your cart is empty. <a href="shop.html" style="color:var(--primary-light);font-weight:600;">Shop here →</a></td></tr>`;
+    document.getElementById('grand-total').textContent = '';
+    document.getElementById('submit-btn').disabled = true;
+    return;
+  }
+
+  document.getElementById('submit-btn').disabled = false;
+  tbody.innerHTML = cart.map(i => `
+    <tr>
+      <td><strong>${i.name}</strong></td>
+      <td>
+        <div class="qty-ctrl">
+          <button class="qty-btn" onclick="updateQty('${i.sku}',-1)">−</button>
+          <span style="min-width:1.5rem;text-align:center;font-weight:600">${i.quantity}</span>
+          <button class="qty-btn" onclick="updateQty('${i.sku}',1)">+</button>
+        </div>
+      </td>
+      <td style="white-space:nowrap">&#8377; ${i.price.toLocaleString('en-IN')}</td>
+      <td style="white-space:nowrap;font-weight:600">&#8377; ${(i.price * i.quantity).toLocaleString('en-IN')}</td>
+      <td><button class="btn btn-danger" onclick="removeItem('${i.sku}')">Remove</button></td>
+    </tr>`).join('');
+
+  const total = cart.reduce((s, i) => s + i.price * i.quantity, 0);
+  document.getElementById('grand-total').textContent = 'Total: ₹ ' + total.toLocaleString('en-IN');
+}
+renderCart();
+
+document.getElementById('order-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const out = document.getElementById('result');
+  const btn = document.getElementById('submit-btn');
+  const fd = new FormData(e.target);
+  const customer = {
+    name: fd.get('name'), email: fd.get('email'), phone: fd.get('phone'),
+    address: fd.get('address'), city: fd.get('city'), pincode: fd.get('pincode'),
+  };
+  const body = { customer, items: cart, paymentMode: fd.get('paymentMode') };
+
+  out.className = 'loading';
+  out.textContent = 'Verifying and placing your order…';
+  btn.disabled = true;
+
+  try {
+    const r = await fetch(API + '/orders', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    const j = await r.json();
+    if (!r.ok) throw new Error(j.error || 'Failed to complete checkout');
+
+    localStorage.removeItem('cart');
+    cart = [];
+    renderCart();
+    out.className = 'success';
+    out.textContent = '🎉 Order placed successfully! Reference ID: #' + (j.order.id || j.order._id);
+    e.target.reset();
+  } catch (err) {
+    out.className = 'error';
+    out.textContent = 'Error: ' + err.message;
+    btn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Shop | Maharshi Medical Equipment</title>
+<link rel="stylesheet" href="assets/styles.css" />
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+<body>
+
+<header class="nav">
+  <a class="brand" href="index.html">Maharshi <span>Medical</span> Equipment</a>
+  <nav>
+    <a href="index.html">Home</a>
+    <a href="shop.html" class="active">Shop</a>
+    <a href="repair.html">Repair Service</a>
+    <a href="login.html"><i class="fa-solid fa-user"></i> Login / Register</a>
+    <a href="checkout.html"><i class="fa-solid fa-cart-arrow-down"></i> <span id="cart-count" class="cart-badge">0</span></a>
+  </nav>
+</header>
+
+<div class="page-header">
+  <div class="page-header-inner">
+    <h1>Our Catalogue</h1>
+    <p>Certified medical equipment delivered fast across India</p>
+  </div>
+</div>
+
+<main class="container">
+  <div id="products" class="grid"></div>
+
+  <!-- Returns Section -->
+  <section class="return-section">
+    <div class="return-header">
+      <h2>Easy Returns &amp; Exchanges</h2>
+      <p>Bought something by mistake or received a faulty unit? Submit a return request within 7 days of delivery.</p>
+    </div>
+    <div class="return-body">
+      <form id="return-form" class="return-form">
+        <input type="text" id="ret-order-id" placeholder="Reference Order ID" required />
+        <input type="email" id="ret-email" placeholder="Your Registered Email" required />
+
+        <select id="ret-sku" required>
+          <option value="" disabled selected>Select Item to Return</option>
+        </select>
+
+        <select id="ret-reason" required>
+          <option value="" disabled selected>Reason for Return</option>
+          <option value="DEFECTIVE">Device faulty / Malfunctioning</option>
+          <option value="WRONG_ITEM">Received incorrect item</option>
+          <option value="NOT_NEEDED">No longer required</option>
+        </select>
+
+        <textarea id="ret-details" rows="3" placeholder="Please describe the issue in detail..." required></textarea>
+
+        <div class="full-width">
+          <button class="btn" type="submit" id="return-submit-btn" style="width:100%; background: linear-gradient(135deg,#059669,#065f46);">Submit Return Request</button>
+        </div>
+      </form>
+      <div id="return-message" style="margin-top:1rem;"></div>
+    </div>
+  </section>
+</main>
+
+
+<footer>&copy; 2026 Maharshi Medical Equipment</footer>
+
+<script>
+const API = (location.port === '5001' ? '' : 'http://localhost:5001') + '/api';
+
+const PRODUCTS = [
+  { sku: 'OXY-5L',  name: 'Oxygen Concentrator 5L',   price: 32999 },
+  { sku: 'BP-DGT',  name: 'Digital BP Monitor',       price: 1599  },
+  { sku: 'NEB-01',  name: 'Compressor Nebulizer',     price: 1299  },
+  { sku: 'WCH-FLD', name: 'Folding Wheelchair',       price: 7499  },
+  { sku: 'PLS-OX',  name: 'Fingertip Pulse Oximeter', price: 899   },
+  { sku: 'GLU-MTR', name: 'Glucometer Kit',           price: 1199  },
+];
+
+const ICONS = { 'OXY-5L':'🫁','BP-DGT':'💓','NEB-01':'💨','WCH-FLD':'♿','PLS-OX':'🩸','GLU-MTR':'🩺' };
+
+function getCart()    { return JSON.parse(localStorage.getItem('cart') || '[]'); }
+function saveCart(c)  { localStorage.setItem('cart', JSON.stringify(c)); renderCount(); }
+function renderCount(){ document.getElementById('cart-count').textContent = getCart().reduce((s,i)=>s+i.quantity,0); }
+
+function addToCart(sku, event) {
+  const btn = event.target;
+  const product = PRODUCTS.find(p => p.sku === sku);
+  const cart = getCart();
+  const existing = cart.find(i => i.sku === sku);
+  if (existing) existing.quantity++;
+  else cart.push({ ...product, quantity: 1 });
+  saveCart(cart);
+
+  const orig = btn.innerHTML;
+  btn.style.background = 'linear-gradient(135deg,#059669,#065f46)';
+  btn.innerHTML = '✓ Added';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.style.background = '';
+    btn.innerHTML = orig;
+    btn.disabled = false;
+  }, 900);
+}
+
+function render() {
+  const root = document.getElementById('products');
+  root.innerHTML = PRODUCTS.map((p, i) => `
+    <article class="card fade-up" style="animation-delay:${i*0.07}s">
+      <div>
+        <div style="font-size:2.5rem; margin-bottom:0.75rem;">${ICONS[p.sku] || '🏥'}</div>
+        <h3>${p.name}</h3>
+        <span class="sku-badge">${p.sku}</span>
+      </div>
+      <div>
+        <p class="price">&#8377; ${p.price.toLocaleString('en-IN')}</p>
+        <button class="btn" style="width:100%" onclick="addToCart('${p.sku}', event)">Add to Cart</button>
+      </div>
+    </article>`).join('');
+  renderCount();
+
+  const skuDropdown = document.getElementById('ret-sku');
+  skuDropdown.innerHTML += PRODUCTS.map(p => `<option value="${p.sku}">${p.name} (${p.sku})</option>`).join('');
+}
+render();
+
+document.getElementById('return-form').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const msgDiv = document.getElementById('return-message');
+  const submitBtn = document.getElementById('return-submit-btn');
+  const returnData = {
+    orderId: document.getElementById('ret-order-id').value,
+    email:   document.getElementById('ret-email').value,
+    sku:     document.getElementById('ret-sku').value,
+    reason:  document.getElementById('ret-reason').value,
+    details: document.getElementById('ret-details').value
+  };
+  msgDiv.style.cssText = 'color:orange; padding:0.75rem 1rem; background:#fff7ed; border:1px solid #fed7aa; border-radius:8px;';
+  msgDiv.textContent = 'Processing return request…';
+  submitBtn.disabled = true;
+  try {
+    const response = await fetch(API + '/returns', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(returnData),
+    });
+    const result = await response.json();
+    if (!response.ok) throw new Error(result.error || 'Failed to submit return request');
+    msgDiv.style.cssText = 'color:#065f46; padding:0.75rem 1rem; background:#d1fae5; border:1px solid #a7f3d0; border-radius:8px;';
+    msgDiv.textContent = `🎉 Return request submitted! ID: ${result.returnRequestId || 'Pending'}`;
+    e.target.reset();
+  } catch (err) {
+    msgDiv.style.cssText = 'color:#991b1b; padding:0.75rem 1rem; background:#fee2e2; border:1px solid #fca5a5; border-radius:8px;';
+    msgDiv.textContent = 'Error: ' + err.message;
+  } finally {
+    submitBtn.disabled = false;
+  }
+});
+</script>
+</body>
+</html>
