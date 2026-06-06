@@ -18,6 +18,7 @@ exports.createReturnRequest = async (req, res, next) => {
       details
     });
 
+    // Notify the administration desk using existing SMTP bindings
     sendEmail({
       subject: `↩️ New Return Request Appended: Order #${orderId}`,
       html: `
